@@ -147,5 +147,5 @@ plot_grid(p1,p2)
 
 ~~~
 
-![image-20210908145936949](D:\github_clone\Pipeline-of-transcriptome\step3.assets\image-20210908145936949.png)
+![image-20210908145936949](.\step3.assets\image-20210908145936949.png)
 

@@ -101,7 +101,7 @@ Rscript /mnt/data/user_data/xiangyu/programme/R_PACKAGES/my_code/RNAseq_pipeline
 - Here, we will introduce the meaning of each file in [T3_vs_T1_3_vs_3_work_file](T3_vs_T1_3_vs_3_work_file) 
   - `0_RNAseq_se.RData` include all the raw data quantified by `Rsamtools` and `GenomicAlignments`, it's a S4 class, and the sample information could be extracted be using `colData(se)`
   
-  - `1_cluster_similarity_pca.pdf`, the graph record the PCA distribution of all sample. ![image-20210908151246141](D:\github_clone\Pipeline-of-transcriptome\step2.assets\image-20210908151246141.png)
+  - `1_cluster_similarity_pca.pdf`, the graph record the PCA distribution of all sample. ![image-20210908151246141](.\step2.assets\image-20210908151246141.png)
   
   - `1_cluster_similarity_rld_pheatmap.pdf` and `1_cluster_similarity_vsd_pheatmap.pdf`, as graphs showed the similarity of each sample on whole transciptome.
   
@@ -123,7 +123,7 @@ Rscript /mnt/data/user_data/xiangyu/programme/R_PACKAGES/my_code/RNAseq_pipeline
   
   - `12_T3_VS_T1_GO_DOWN.csv` include all the GO enrichment results in control samples up-regulated signatures. 
   
-  - `13_T3_VS_T1_GO_UP.pdf` and `14_T3_VS_T1_GO_DOWN.pdf` show the top GO enrichment results![image-20210908152133341](D:\github_clone\Pipeline-of-transcriptome\step2.assets\image-20210908152133341.png)
+  - `13_T3_VS_T1_GO_UP.pdf` and `14_T3_VS_T1_GO_DOWN.pdf` show the top GO enrichment results![image-20210908152133341](.\step2.assets\image-20210908152133341.png)
   
     
 
