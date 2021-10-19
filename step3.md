@@ -1,8 +1,8 @@
 # Step3. The quantification of transcripts by stringtie
 
-To quantify the expression levels of each isoform/transcript in bulk RNA-seq data, `RSEM` and `stringtie` were the most popular tools to used. No matter which tool you finally used, `ENSEMBEL` reference should be used, such as GRCh38 version genome reference for human data, and GRCm38 version genome reference for mouse data.
+To quantify the expression levels of each isoform/transcript in bulk RNA-seq data, `RSEM` and `stringtie` were the most popular tools to used. No matter which tool you used finally , the basic `.bam` files generated from `step1` would be used in this part.
 
-Here, we show the detail codes to process this `.bam` files generated from [Step1](step1.md).
+Here, we show the detail codes to process this `.bam` files generated from [Step1](step1.md),  aligned with GRCh38 (you might change the `.gtf` files to your reference)
 
 ~~~shell
 #here, we need to assign the pathways of tools, refrence and output files 

@@ -19,17 +19,19 @@ R scripting front-end version 3.5.1 (2018-07-02)
 
   ## [Step2. The quantification and DEG identification](step2.md)
 
-- And sometimes, you want to quantify the expression levels of each transcripts in bulk RNA-seq, I suggest you follow next pipeline, quantified by ``stringtie``. 
+- And sometimes, you want to quantify the expression levels of each transcripts in bulk RNA-seq, I suggest you follow next pipeline, quantified by ``stringtie`` and/or `RSEM`. 
 
-  ## [Step3. The quantification of transcripts by stringtie](step3.md)
+  ## [Step3. The quantification of transcripts by stringtie ](step3.md)
 
+  ## [Step4. The quantification of transcripts by RSEM](step4.md)
+  
   
 
 ## Keep updating of Pipeline-of-transcriptome
 
 - And this pipeline is flexible, you could broaden more analysis steps based on the output of ```RNAseq_pipeline```, such as GSEA analysis, TF enrichment, deconvolution and et al. 
 
-- And this `Pipeline-of-transcriptome` keep updating, welcome anyone others to add comments and provide request. 
+- And this `Pipeline-of-transcriptome` would keep updating, welcome anyone others to add comments and provide request. 
 
    
 

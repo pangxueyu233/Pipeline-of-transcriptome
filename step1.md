@@ -133,9 +133,9 @@ STAR_tools=/usr/bin/STAR
 $STAR_tools \
 --runThreadN 20 \                          #how many cores you plan to use
 --runMode genomeGenerate \                 #use to generate the genome index for specific reference
---genomeDir /mnt/data/public_data/reference/Mus/Mus_musculus_GRCm38_150bp \ #the output name and pathways of genome index
---genomeFastaFiles /mnt/data/public_data/reference/Mus/Mus_musculus_GRCm38/Mus_musculus.GRCm38.dna.primary_assembly.fa \ #the fasta file of specific genome
---sjdbGTFfile /mnt/data/public_data/reference/Mus/Mus_musculus_GRCm38/Mus_musculus.GRCm38.89.gtf \  #the .gtf file of specific genome
+--genomeDir /mnt/data/public_data/reference/Mus_musculus_UCSC/UCSC/mm10/star_index/mm10_150_index \ #the output name and pathways of genome index
+--genomeFastaFiles /mnt/data/public_data/reference/Mus_musculus_UCSC/UCSC/mm10/Sequence/WholeGenomeFasta/genome.fa \ #the fasta file of specific genome
+--sjdbGTFfile /mnt/data/public_data/reference/Mus_musculus_UCSC/UCSC/mm10/Annotation/Genes/genes.gtf \  #the .gtf file of specific genome
 --sjdbOverhang 149  #the length of your sequncing data, such as pired-end 150 (PE150) of each sample, this parameter should set the 149
 ~~~
 
@@ -144,31 +144,52 @@ And then, we begin our alignment with STAR in each sample:
 ~~~shell
 #here, we need to assign the pathways of tools, refrence and output files 
 STAR_tools=/usr/bin/STAR
-sequence_data_path=./CP2020120100066/H101SC21030878/RSCS3300/X101SC21030878-Z03/X101SC21030878-Z03-F027/2.cleandata
-refrence=/mnt/data/public_data/reference/Mus_musculus_GRCm38_150bp
-output_path=./workshop/RNAseq/RNAseq_85_WBH_20210809_9samples/
+sequence_data_path=/mnt/data/sequencedata/RNAseq/RNAseq_85_WBH_20210809_9samples/CP2020120100066/H101SC21030878/RSCS3300/X101SC21030878-Z03/X101SC21030878-Z03-F027/2.cleandata
+refrence=/mnt/data/public_data/reference/Mus_musculus_UCSC/UCSC/mm10/star_index/mm10_150_index
+output_path=/mnt/data/user_data/xiangyu/workshop/RNAseq/RNAseq_85_WBH_20210809_9samples
 
-#And then, we begin our alignment in each sample
+#And then, we begin our alignment in each sample. The parameters of alignment were introduced here.
+--readFilesCommand zcat                   #input with .fq.gz files/
+--outSAMtype BAM SortedByCoordinate       #output files should be the bam files not sam files.
+--runThreadN 5 --outBAMsortingThreadN 5   #how many cores you plan to use in align and sorted
+--quantMode TranscriptomeSAM GeneCounts   #generate the bam with gene and isoform quantified
+--readFilesIn 
+$sequence_data_path/$path/$fq1            #input with ._1.clean.fq.gz
+$sequence_data_path/$path/$fq2            #input with ._2.clean.fq.gz, if you are not the paired data, you just delete this line
+--genomeDir $refrence                     #genome refence with STAR index 
+--outFileNamePrefix $output_path/$sample. #the pathways and names of output files
+
+#Now, we begin our alignment in each sample
 cat config.raw1  |while read id;
 do echo $id
 arr=($id)
 path=${arr[1]}
-fq2=${arr[1]}'_2.clean.fq.gz'
-fq1=${arr[1]}'_1.clean.fq.gz'
 sample=${arr[0]}
+fq2=${path}'_2.clean.fq.gz'
+fq1=${path}'_1.clean.fq.gz'
 echo $fq2
 echo $fq1
 echo $sample
 echo $path
-$STAR_tools  --readFilesCommand zcat \       #input with .fq.gz files/
---outSAMtype BAM SortedByCoordinate \        #output files should be the bam files not sam files.
---runThreadN 20 \                            #how many cores you plan to use
+$STAR_tools  --readFilesCommand zcat  \
+--outSAMtype BAM SortedByCoordinate \
+--runThreadN 15 --outBAMsortingThreadN 15 \
+--quantMode TranscriptomeSAM GeneCounts \
 --readFilesIn \
-$sequence_data_path/$path/$fq1 \             #input with ._1.clean.fq.gz
-$sequence_data_path/$path/$fq2 \             #input with ._2.clean.fq.gz, if you are not the paired data, you just delete this line
---genomeDir $refrence \                      #genome refence with STAR index 
---outFileNamePrefix $output_path/$sample. ;  #the pathways and names of output files
+$sequence_data_path/$path/$fq1 \
+$sequence_data_path/$path/$fq2 \
+--genomeDir $refrence \
+--outFileNamePrefix $output_path/$sample. ;
 done
+
+#After alignment, we need to clean up and classify the processed data
+mkdir toTranscriptome.out.bam
+mv *toTranscriptome.out.bam ./toTranscriptome.out.bam
+mkdir sortedByCoord.out.bam
+mv *sortedByCoord.out.bam ./sortedByCoord.out.bam
+mkdir log_out
+mv *tab ./log_out
+mv *out ./log_out
 
 ~~~
 
@@ -176,68 +197,87 @@ And the tree files you would generate as following:
 
 ~~~shell
 .
-├── config.raw1
-├── config.raw2
-├── config.raw3
-├── T1_L1.Aligned.sortedByCoord.out.bam
-├── T1_L1.Log.final.out
-├── T1_L1.Log.out
-├── T1_L1.Log.progress.out
-├── T1_L1.SJ.out.tab
-├── T1_L2.Aligned.sortedByCoord.out.bam
-├── T1_L2.Log.final.out
-├── T1_L2.Log.out
-├── T1_L2.Log.progress.out
-├── T1_L2.SJ.out.tab
-├── T1_L3.Aligned.sortedByCoord.out.bam
-├── T1_L3.Log.final.out
-├── T1_L3.Log.out
-├── T1_L3.Log.progress.out
-├── T1_L3.SJ.out.tab
-├── T2_N.Aligned.sortedByCoord.out.bam
-├── T2_N.Log.final.out
-├── T2_N.Log.out
-├── T2_N.Log.progress.out
-├── T2_N.SJ.out.tab
-├── T2_R1.Aligned.sortedByCoord.out.bam
-├── T2_R1.Log.final.out
-├── T2_R1.Log.out
-├── T2_R1.Log.progress.out
-├── T2_R1.SJ.out.tab
-├── T2_R3.Aligned.sortedByCoord.out.bam
-├── T2_R3.Log.final.out
-├── T2_R3.Log.out
-├── T2_R3.Log.progress.out
-├── T2_R3.SJ.out.tab
-├── T3_L4.Aligned.sortedByCoord.out.bam
-├── T3_L4.Log.final.out
-├── T3_L4.Log.out
-├── T3_L4.Log.progress.out
-├── T3_L4.SJ.out.tab
-├── T3_R2.Aligned.sortedByCoord.out.bam
-├── T3_R2.Log.final.out
-├── T3_R2.Log.out
-├── T3_R2.Log.progress.out
-├── T3_R2.SJ.out.tab
-├── T3_R4.Aligned.sortedByCoord.out.bam
-├── T3_R4.Log.final.out
-├── T3_R4.Log.out
-├── T3_R4.Log.progress.out
-├── T3_R4.SJ.out.tab
+├── [ 286]  config.raw1
+├── [4.0K]  log_out
+│   ├── [1.8K]  T1_L1.Log.final.out
+│   ├── [ 25K]  T1_L1.Log.out
+│   ├── [1.3K]  T1_L1.Log.progress.out
+│   ├── [382K]  T1_L1.ReadsPerGene.out.tab
+│   ├── [6.8M]  T1_L1.SJ.out.tab
+│   ├── [1.8K]  T1_L2.Log.final.out
+│   ├── [ 25K]  T1_L2.Log.out
+│   ├── [1.5K]  T1_L2.Log.progress.out
+│   ├── [385K]  T1_L2.ReadsPerGene.out.tab
+│   ├── [7.0M]  T1_L2.SJ.out.tab
+│   ├── [1.8K]  T1_L3.Log.final.out
+│   ├── [ 25K]  T1_L3.Log.out
+│   ├── [1.5K]  T1_L3.Log.progress.out
+│   ├── [386K]  T1_L3.ReadsPerGene.out.tab
+│   ├── [7.2M]  T1_L3.SJ.out.tab
+│   ├── [1.8K]  T2_N.Log.final.out
+│   ├── [ 25K]  T2_N.Log.out
+│   ├── [1.2K]  T2_N.Log.progress.out
+│   ├── [382K]  T2_N.ReadsPerGene.out.tab
+│   ├── [7.1M]  T2_N.SJ.out.tab
+│   ├── [1.8K]  T2_R1.Log.final.out
+│   ├── [ 25K]  T2_R1.Log.out
+│   ├── [1.2K]  T2_R1.Log.progress.out
+│   ├── [384K]  T2_R1.ReadsPerGene.out.tab
+│   ├── [7.0M]  T2_R1.SJ.out.tab
+│   ├── [1.8K]  T2_R3.Log.final.out
+│   ├── [ 25K]  T2_R3.Log.out
+│   ├── [1.5K]  T2_R3.Log.progress.out
+│   ├── [381K]  T2_R3.ReadsPerGene.out.tab
+│   ├── [6.7M]  T2_R3.SJ.out.tab
+│   ├── [1.8K]  T3_L4.Log.final.out
+│   ├── [ 25K]  T3_L4.Log.out
+│   ├── [2.5K]  T3_L4.Log.progress.out
+│   ├── [384K]  T3_L4.ReadsPerGene.out.tab
+│   ├── [7.5M]  T3_L4.SJ.out.tab
+│   ├── [1.8K]  T3_R2.Log.final.out
+│   ├── [ 25K]  T3_R2.Log.out
+│   ├── [1.9K]  T3_R2.Log.progress.out
+│   ├── [385K]  T3_R2.ReadsPerGene.out.tab
+│   ├── [7.4M]  T3_R2.SJ.out.tab
+│   ├── [1.8K]  T3_R4.Log.final.out
+│   ├── [ 25K]  T3_R4.Log.out
+│   ├── [2.0K]  T3_R4.Log.progress.out
+│   ├── [382K]  T3_R4.ReadsPerGene.out.tab
+│   └── [6.8M]  T3_R4.SJ.out.tab
+├── [4.0K]  sortedByCoord.out.bam
+│   ├── [1.8G]  T1_L1.Aligned.sortedByCoord.out.bam
+│   ├── [2.0G]  T1_L2.Aligned.sortedByCoord.out.bam
+│   ├── [2.2G]  T1_L3.Aligned.sortedByCoord.out.bam
+│   ├── [1.8G]  T2_N.Aligned.sortedByCoord.out.bam
+│   ├── [1.8G]  T2_R1.Aligned.sortedByCoord.out.bam
+│   ├── [1.8G]  T2_R3.Aligned.sortedByCoord.out.bam
+│   ├── [2.3G]  T3_L4.Aligned.sortedByCoord.out.bam
+│   ├── [2.0G]  T3_R2.Aligned.sortedByCoord.out.bam
+│   ├── [1.7G]  T3_R4.Aligned.sortedByCoord.out.bam
+└── [4.0K]  toTranscriptome.out.bam
+    ├── [2.2G]  T1_L1.Aligned.toTranscriptome.out.bam
+    ├── [2.6G]  T1_L2.Aligned.toTranscriptome.out.bam
+    ├── [2.8G]  T1_L3.Aligned.toTranscriptome.out.bam
+    ├── [2.1G]  T2_N.Aligned.toTranscriptome.out.bam
+    ├── [2.2G]  T2_R1.Aligned.toTranscriptome.out.bam
+    ├── [2.2G]  T2_R3.Aligned.toTranscriptome.out.bam
+    ├── [2.8G]  T3_L4.Aligned.toTranscriptome.out.bam
+    ├── [2.6G]  T3_R2.Aligned.toTranscriptome.out.bam
+    └── [2.2G]  T3_R4.Aligned.toTranscriptome.out.bam
 ~~~
 
 To better visualize the ```.bam``` files in ```IGV```, you should index these ```.bam``` files or transfer them into ```.bw``` files. Here, we only showed the index steps. 
 
 ~~~shell
+cd ./sortedByCoord.out.bam
+ls | while read id ; do
+echo $id 
+samtools index -@ 20 $id ;
+done
+
+cd ../toTranscriptome.out.bam
 ls | while read id ; do
 echo $id 
 samtools index -@ 20 $id ;
 done
 ~~~
-
-
-
-
-
-
-
