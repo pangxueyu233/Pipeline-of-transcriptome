@@ -1,4 +1,4 @@
-# Step3. The quantification of transcripts by stringtie
+# Part 1. The quantification of transcripts by stringtie
 
 To quantify the expression levels of each isoform/transcript in bulk RNA-seq data, `RSEM` and `stringtie` were the most popular tools to used. No matter which tool you used finally , the basic `.bam` files generated from `step1` would be used in this part.
 

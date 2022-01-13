@@ -1,4 +1,4 @@
-# Step2. The quantification and DEG identification in bulk RNA-seq
+# Step 2. The quantification and DEG identification in bulk RNA-seq
 
 Here, we integrated expression quantification, counts data normalization, differentiation expression gene identification and pathways enrichments, into our pipelines, named ```RNAseq_pipeline```.
 

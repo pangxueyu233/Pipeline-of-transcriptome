@@ -169,15 +169,11 @@ wald.p$result$chi2[3]
 
 ## 9. reference
 
-https://support.bioconductor.org/p/121919/
-
-https://stats.stackexchange.com/questions/237073/how-does-r-calculate-the-p-value-for-this-binomial-regression
-
-https://www.statology.org/wald-test-in-r/
-
-https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#theory-behind-deseq2
-
-https://stats.stackexchange.com/questions/144603/why-do-my-p-values-differ-between-logistic-regression-output-chi-squared-test/144608#144608
+- https://support.bioconductor.org/p/121919/
+- https://stats.stackexchange.com/questions/237073/how-does-r-calculate-the-p-value-for-this-binomial-regression
+- https://www.statology.org/wald-test-in-r/
+- https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#theory-behind-deseq2
+- https://stats.stackexchange.com/questions/144603/why-do-my-p-values-differ-between-logistic-regression-output-chi-squared-test/144608#144608
 
 
 

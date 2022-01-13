@@ -1,4 +1,4 @@
-# Step1. The alignment of bulk RNA-seq
+# Step 1. The alignment of bulk RNA-seq
 
 Firstly, we should download the raw data of ```.fasta``` files from ```Sequencing company```. Nowadays, we had much more cooperations with Novogene. Hence, we show the codes line to download the raw data from them:
 
@@ -6,9 +6,7 @@ Firstly, we should download the raw data of ```.fasta``` files from ```Sequencin
 ./programme/lnd login \
 -u X101SC21030878-Z03-F027 \  #登录账号
 -p kf6mmxcj                   #登录密码
-
 ./programme/lnd list          #list oss path
-
 ./programme/lnd cp oss://CP2020120100066 -d ./ -b 1000  #downlaod the raw data
 ~~~
 

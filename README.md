@@ -2,7 +2,7 @@
 
 ## Overview
 
-This workshop recorded the whole processing steps of transcriptome data analysis in CC-LY Lab written by Shawn (xiangyu) Pan and Xuelan Chen. This page would be helpful and easy to be read and operated, especially for the new-hand bioinformatician. We will try to keep updating of ` Pipeline-of-transcriptome`. And this pipeline is flexible, you could broaden more analysis steps and tools in tegrated into this page, such as GSEA analysis, TF enrichment, bulk RNA-seq data deconvolution and et al. We also expected you could add comments and provide request to improve this page. Hope you could had a good grip of the basic transcriptome data analysis rapidly and smoothly
+This workshop recorded the whole processing steps of transcriptome data analysis in CC-LY Lab written by Shawn (Xiangyu) Pan and Xuelan Chen. This page would be helpful and easy to be read and operated, especially for the bioinformatic new-hand. We will try to keep updating of ` Pipeline-of-transcriptome`. And this pipeline is flexible, you could broaden more analysis steps and tools in tegrated into this page, such as GSEA analysis, TF enrichment, bulk RNA-seq data deconvolution and et al. We also expected you could add comments and provide request to improve this page. Hope you could had a good grip of the basic transcriptome data analysis rapidly and smoothly
 
 ## **The analysis pipeline included**
 
@@ -15,7 +15,8 @@ This workshop recorded the whole processing steps of transcriptome data analysis
   - [x] The summary of the methods to calculate the p-value
 - [x] GO/KEGG enrichment
 - [x] GSEA
-- [ ] Alternative splicing
+- [x] Alternative splicing
+- [ ] Motif/TF identification
 - [ ] RNA editing
 - [ ] Mutation
 - [ ] et al.
@@ -42,25 +43,25 @@ R scripting front-end version 3.5.1 (2018-07-02)
 
 After you running out the ` pre-processing steps`, you could directly begin [The quantification of genes and the identification of DEG.](step2.md) You could could visit the page by clinking [here.](step2.md)
 
-## 3. The summary of some methods  used in transcriptome data analysis
+## 3. The optional methods  in transcripts quantification and p-value calculation
 
 ## 3.1 The summary of quantification of transcripts methods  
 
 - And sometimes, you want to quantify the expression levels of each transcripts in bulk RNA-seq, I suggest you follow next pipeline, quantified by ``stringtie`` and/or `RSEM`. 
 
-  [Part1. The quantification of transcripts by stringtie ](step3.md)
+  [Part 1. The quantification of transcripts by stringtie ](step3.md)
 
-  [Part2. The quantification of transcripts by RSEM](step4.md)
+  [Part 2. The quantification of transcripts by RSEM](step4.md)
 
 ## 3.2 The summary of some statistic methods
 
 - When we compared the expression levels of candidate gene in different biology group, statistic power is so important to be calculated. To better support the correlation of our candidate gene and prior biology knowledge, especially some regressing analysis in clinical database, I had generated a summary of the methods to calculate the p-value in DEG identification. And you could visit them by clicking [here](pvalue_cal.md)
 
-## 4. The identification of alternative slpincing events
+## 4. The identification of alternative splicing events
 
-- After you learn all the steps mentioned above, you could begin the lernaing of [The identification of alternative slpincing events]()
+- After you learn all the steps mentioned above, you could begin the learning of [The identification of alternative splicing events](AS_identified.md)
 
-## 5. keep updating
+## 5. Keep updating
 
 
 
