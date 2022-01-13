@@ -79,8 +79,8 @@ wald.p$result$chi2[3]
 
 ~~~R
 bino_model <- glm(all_merge_test$y ~ all_merge_test$RRM2B, family="binomial")
-beta = coef(model)[2]
-B_SE = sqrt(vcov(model)[2,2])
+beta = coef(bino_model)[2]
+B_SE = sqrt(vcov(bino_model)[2,2])
 pvalue =  pnorm(-abs(beta) / B_SE)  * 2
 pvalue
 all_merge.cut.cat$RRM2B_exp
