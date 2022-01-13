@@ -55,7 +55,8 @@ After you running out the ` pre-processing steps`, you could directly begin [The
 
 ## 3.2 The summary of some statistic methods
 
-- When we compared the expression levels of candidate gene in different biology group, statistic power is so important to be calculated. To better support the correlation of our candidate gene and prior biology knowledge, especially some regressing analysis in clinical database, I had generated a summary of the methods to calculate the p-value in DEG identification. And you could visit them by clicking [here](pvalue_cal.md)
+- When we compared the expression levels of candidate gene in different biology group, statistic power is so important that could determine the confidence of the results. To better support our hypothesis of candidate genes, especially doing analysis in multiple clinical cohorts, we could refer to more methods of p-value calculation. 
+- [Here](pvalue_cal.md), I had generated a[summary of the methods to calculate the p-value](pvalue_cal.md) in DEG identification. And you also could visit them by clicking [here](pvalue_cal.md)
 
 ## 4. The identification of alternative splicing events
 
