@@ -2,7 +2,7 @@
 
 ## Overview
 
-This workshop recorded the whole processing steps of transcriptome data analysis in CC-LY Lab written by Shawn (Xiangyu) Pan and Xuelan Chen. This page would be helpful and easy to be read and operated, especially for the bioinformatic new-hand. We will try to keep updating of ` Pipeline-of-transcriptome`. And this pipeline is flexible, you could broaden more analysis steps and tools in tegrated into this page, such as GSEA analysis, TF enrichment, bulk RNA-seq data deconvolution and et al. We also expected you could add comments and provide request to improve this page. Hope you could had a good grip of the basic transcriptome data analysis rapidly and smoothly
+This workshop records the whole processing steps of transcriptome data analysis in CC-LY Lab written by Xiangyu Pan and Xuelan Chen. This page would be helpful and easy to be read, which is designed for the new-hand of bioinformaticians. We will try to maintain and update the ` Pipeline-of-transcriptome` in time. And this pipeline is also flexible, you can broaden more analysis steps and tools which could integrate into this page, such as GSEA analysis, TF enrichments, bulk RNA-seq data deconvolution or anything else. We also expect you could add comments and provide some useful requests to improve and optimize this page. Finally, Hope you could have a good grip of the basic transcriptome data analysis.
 
 ## **The analysis pipeline included**
 
